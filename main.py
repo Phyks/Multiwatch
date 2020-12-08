@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
+import logging
 import sys
 
 import requests
 
 from urllib.parse import urlencode
+
+logging.basicConfig(level=logging.WARNING)
 
 LOCALES = {
     'fr_FR': 'France',
@@ -24,6 +27,7 @@ req = requests.get(
         'body': '{"page_size":5,"page":1,"query":"%s","content_types":["show","movie"]}' % query
     }
 )
+logging.info(req.url)
 
 i = 0
 list = []
@@ -33,8 +37,13 @@ if not 'items' in req.json() or not req.json()['items']:
     sys.exit()
 
 for item in req.json()['items']:
-    list.append(item['id'])
-    print('%s. %s' % (i, item['title']))
+    list.append((item['object_type'], item['id']))
+    print('%s. %s - %s' % (
+        i, item['title'],
+        'https://images.justwatch.com%s' % (
+            item['poster'].replace(r'{profile}', 's276')
+        )
+    ))
     i += 1
 
 print()
@@ -50,13 +59,16 @@ print()
 print('Available from these flatrate services:')
 for locale, locale_name in LOCALES.items():
     print('> %s:' % locale_name)
-    req = requests.get(
-        'https://apis.justwatch.com/content/titles/show/%s/locale/%s?language=fr'
-        % (list[title_nb], locale)
+    url = (
+        'https://apis.justwatch.com/content/titles/%s/%s/locale/%s?language=fr'
+        % (list[title_nb][0], list[title_nb][1], locale)
     )
+    logging.info(url)
+    req = requests.get(url)
     offers = {}
     if not req.json().get('offers', []):
         print('  None')
+        print()
         continue
 
     for offer in req.json().get('offers', []):
