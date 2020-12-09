@@ -7,18 +7,10 @@ localizations.
 Relies on data from [Justwatch.com](https://www.justwatch.com/).
 
 
-## Installation
-
-```
-pip install -r requirements.txt
-```
-
 
 ## Usage
 
-```
-python3 main.py
-```
+Just serve `index.html` with a webserver with [CORS headers enabled](https://developer.mozilla.org/fr/docs/Web/HTTP/CORS).
 
 
 ## License

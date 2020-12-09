@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Multiwatch</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <style type="text/css">
+      body {
+          max-width: 600px;
+          margin: auto;
+          text-align: center;
+          font-family: sans-serif;
+      }
+
+      h1 a {
+          text-decoration: none;
+          color: black;
+      }
+
+      .left {
+          text-align: left;
+      }
+
+      .error {
+          color: red;
+          font-weight: bold;
+      }
+
+      .pointer {
+          cursor: pointer;
+      }
+
+      .no-bullet {
+          list-style-type: none;
+      }
+  </style>
+</head>
+<body>
+    <div id="app">
+        <h1><a href="./">Multiwatch</a></h1>
+        <p v-if="step > 1"><a href="./">Back</a></p>
+
+        <p v-if="error" class="error">{{ error }}</p>
+
+        <div v-if="step == 1">
+            <h2>Search</h2>
+
+            <form id="searchForm" v-on:submit.prevent="search">
+                <p>
+                    <label for="title">Title:</label>
+                    <input type="text" v-model="title" id="title" />
+                </p>
+                <p>
+                    <input type="submit" value="Search"/>
+                </p>
+            </form>
+        </div>
+        <div v-else>
+            <ul v-if="step == 2" class="no-bullet">
+                <li v-for="(item, index) in searchItems">
+                    <img class="pointer" v-bind:src="item.poster_url" v-bind:alt="item.title" v-on:click="() => loadItem(index)" />
+                </li>
+            </ul>
+            <div v-else>
+                <div v-for="(localeOffers, locale) in offers">
+                    <h3>{{ availableLocales[locale] }}</h3>
+                    <ul v-if="localeOffers.length > 0" class="left">
+                        <li v-for="offer in localeOffers"><a v-bind:href="offer">{{ offer }}</a></li>
+                    </ul>
+                    <p v-else>None</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+var app = new Vue({
+    el: '#app',
+    data: {
+        availableLocales: {
+            'fr_FR': 'France',
+            'en_AU': 'Australia',
+            'en_CA': 'Canada',
+            'de_DE': 'Germany',
+            'pl_PL': 'Poland',
+            'en_SG': 'Singapore',
+            'en_UK': 'United Kingdom',
+        },
+        error: null,
+        title: '',
+        searchItems: [],
+        offers: {},
+        step: 1,
+    },
+    methods: {
+        search() {
+            fetch(`https://apis.justwatch.com/content/titles/fr_FR/popular?language=fr&body={"page_size":5,"page":1,"query":"${this.title}","content_types":["show","movie"]}`)
+                .then(response => response.json())
+                .then(response => {
+                    this.error = null;
+                    if (!response.items || response.items.length == 0) {
+                        this.error = 'Not found'
+                        return;
+                    }
+
+                    this.searchItems = response.items.map((item) => {
+                        return {
+                            id: item.id,
+                            title: item.title,
+                            type: item.object_type,
+                            poster_url: `https://images.justwatch.com${item['poster'].replace('{profile}', 's276')}`
+                        };
+                    });
+                    this.step += 1;
+                })
+                .catch(exc => this.error = exc);
+        },
+        loadItem(index) {
+            this.offers = {};
+            this.error = null;
+
+            var promises = [];
+            Object.keys(this.availableLocales).forEach((locale) => {
+                var searchItem = this.searchItems[index];
+                var url = `https://apis.justwatch.com/content/titles/${searchItem.type}/${searchItem.id}/locale/${locale}?language=fr`
+                promises.push(fetch(url)
+                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.offers) {
+                            return;
+                        }
+                        this.offers[locale] = response.offers
+                            .filter(item => item.monetization_type == 'flatrate')
+                            .map(item => item.urls.standard_web);
+                        this.offers[locale] = [...new Set(this.offers[locale])];
+                    })
+                    .catch(exc => this.error = exc)
+                );
+            })
+            Promise.all(promises).then(() => this.step += 1);
+        },
+    },
+});
+</script>
+</body>
+</html>
