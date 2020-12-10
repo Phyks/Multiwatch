@@ -7,10 +7,9 @@ localizations.
 Relies on data from [Justwatch.com](https://www.justwatch.com/).
 
 
-
 ## Usage
 
-Just serve `index.html` with a webserver with [CORS headers enabled](https://developer.mozilla.org/fr/docs/Web/HTTP/CORS).
+Just open `index.html` with your browser.
 
 
 ## License
