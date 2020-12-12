@@ -18,6 +18,16 @@
           color: black;
       }
 
+      .flex {
+          display: flex;
+          flex-wrap: wrap;
+      }
+
+      .flex div {
+          width: 200px;
+          text-align: left;
+      }
+
       .left {
           text-align: left;
       }
@@ -38,8 +48,8 @@
 </head>
 <body>
     <div id="app">
-        <h1><a href="./">Multiwatch</a></h1>
-        <p v-if="step > 1"><a href="./">Back</a></p>
+        <h1><a href="./index.html">Multiwatch</a></h1>
+        <p v-if="step > 1"><a href="./index.html">Back</a></p>
 
         <p v-if="error" class="error">{{ error }}</p>
 
@@ -51,6 +61,14 @@
                     <label for="title">Title:</label>
                     <input type="text" v-model="title" id="title" />
                 </p>
+                <h3>Countries</h3>
+                <div class="flex">
+                    <div v-for="(localeId, country) in availableCountries">
+                        <input type="checkbox" v-bind:id="localeId" v-bind:checked="checkedLocales.indexOf(localeId) !== -1" v-on:click="() => toggleCheckbox(localeId)">
+                        <label v-bind:for="localeId">{{ country }}</label>
+                    </div>
+                </div>
+                <!-- TODO: Remember checkboxes status -->
                 <p>
                     <input type="submit" value="Search"/>
                 </p>
@@ -76,15 +94,150 @@
     <script type="text/javascript">
 var app = new Vue({
     el: '#app',
+    computed: {
+        availableLocales() {
+            var out = {};
+            Object.keys(this.availableCountries).forEach((country) => {
+                out[this.availableCountries[country]] = country;
+            });
+            return out;
+        },
+    },
     data: {
-        availableLocales: {
-            'fr_FR': 'France',
-            'en_AU': 'Australia',
-            'en_CA': 'Canada',
-            'de_DE': 'Germany',
-            'pl_PL': 'Poland',
-            'en_SG': 'Singapore',
-            'en_UK': 'United Kingdom',
+        checkedLocales: ['fr_FR', 'en_AU', 'en_CA', 'de_DE', 'pl_PL', 'en_SG', 'en_UK'],
+        availableCountries: {
+            "Afghanistan": "ps_AF",
+            "Albania": "sq_AL",
+            "Algeria": "ar_DZ",
+            "Andorra": "ca_AD",
+            "Antigua And Barbuda": "en_AG",
+            "Argentina": "es_AR",
+            "Armenia": "hy_AM",
+            "Aruba": "nl_AW",
+            "Australia": "en_AU",
+            "Austria": "de_AT",
+            "Azerbaijan": "az_AZ",
+            "Bahrain": "ar_BH",
+            "Bangladesh": "bn_BD",
+            "Belarus": "be_BY",
+            "Belgium": "fr_BE",
+            "Bhutan": "dz_BT",
+            "Bolivia": "es_BO",
+            "Bosnia And Herzegovina": "bs_BA",
+            "Botswana": "en_BW",
+            "Brazil": "pt_BR",
+            "Bulgaria": "bg_BG",
+            "Cambodia": "km_KH",
+            "Canada": "en_CA",
+            "Chile": "es_CL",
+            "China": "zh_CN",
+            "Colombia": "es_CO",
+            "Costa Rica": "es_CR",
+            "Croatia": "hr_HR",
+            "Cyprus": "el_CY",
+            "Czech Republic": "cs_CZ",
+            "Denmark": "da_DK",
+            "Djibouti": "so_DJ",
+            "Dominican Republic": "es_DO",
+            "Ecuador": "es_EC",
+            "Egypt": "ar_EG",
+            "El Salvador": "es_SV",
+            "Eritrea": "tig_ER",
+            "Estonia": "et_EE",
+            "Ethiopia": "am_ET",
+            "Faroe Islands": "fo_FO",
+            "Finland": "fi_FI",
+            "France": "fr_FR",
+            "Georgia": "ka_GE",
+            "Germany": "de_DE",
+            "Greece": "el_GR",
+            "Greenland": "kl_GL",
+            "Guatemala": "es_GT",
+            "Haiti": "ht_HT",
+            "Honduras": "es_HN",
+            "Hong Kong": "en_HK",
+            "Hungary": "hu_HU",
+            "Iceland": "is_IS",
+            "India": "en_IN",
+            "Indonesia": "id_ID",
+            "Iran, Islamic Republic Of": "fa_IR",
+            "Iraq": "ar_IQ",
+            "Ireland": "en_IE",
+            "Israel": "he_IL",
+            "Italy": "it_IT",
+            "Japan": "ja_JP",
+            "Jordan": "ar_JO",
+            "Kazakhstan": "kk_KZ",
+            "Kenya": "om_KE",
+            "Korea, Republic Of": "ko_KR",
+            "Kuwait": "ar_KW",
+            "Kyrgyzstan": "ky_KG",
+            "Latvia": "lv_LV",
+            "Lebanon": "ar_LB",
+            "Libyan Arab Jamahiriya": "ar_LY",
+            "Liechtenstein": "de_LI",
+            "Lithuania": "lt_LT",
+            "Luxembourg": "fr_LU",
+            "Macedonia": "mk_MK",
+            "Madagascar": "mg_MG",
+            "Malaysia": "ms_MY",
+            "Maldives": "dv_MV",
+            "Malta": "mt_MT",
+            "Mexico": "es_MX",
+            "Mongolia": "mn_MN",
+            "Morocco": "ar_MA",
+            "Myanmar": "my_MM",
+            "Nepal": "ne_NP",
+            "Netherlands": "nl_NL",
+            "Netherlands Antilles": "pap_AN",
+            "New Zealand": "en_NZ",
+            "Nicaragua": "es_NI",
+            "Nigeria": "en_NG",
+            "Norway": "no_NO",
+            "Oman": "ar_OM",
+            "Pakistan": "pa_PK",
+            "Panama": "es_PA",
+            "Paraguay": "es_PY",
+            "Peru": "es_PE",
+            "Philippines": "en_PH",
+            "Poland": "pl_PL",
+            "Portugal": "pt_PT",
+            "Puerto Rico": "es_PR",
+            "Qatar": "ar_QA",
+            "Romania": "ro_RO",
+            "Russian Federation": "ru_RU",
+            "Rwanda": "rw_RW",
+            "Saudi Arabia": "ar_SA",
+            "Senegal": "wo_SN",
+            "Serbia And Montenegro": "sr_CS",
+            "Singapore": "en_SG",
+            "Slovakia": "sk_SK",
+            "Slovenia": "sl_SI",
+            "Somalia": "so_SO",
+            "South Africa": "af_ZA",
+            "Spain": "es_ES",
+            "Sri Lanka": "si_LK",
+            "Sudan": "ar_SD",
+            "Sweden": "sv_SE",
+            "Switzerland": "fr_CH",
+            "Syrian Arab Republic": "ar_SY",
+            "Taiwan": "zh_TW",
+            "Tajikistan": "tg_TJ",
+            "Thailand": "th_TH",
+            "Tunisia": "ar_TN",
+            "Turkey": "tr_TR",
+            "Turkmenistan": "tk_TM",
+            "Uganda": "lg_UG",
+            "Ukraine": "uk_UA",
+            "United Arab Emirates": "ar_AE",
+            "United Kingdom": "en_GB",
+            "United States": "en_US",
+            "Uruguay": "es_UY",
+            "Uzbekistan": "uz_UZ",
+            "Venezuela": "es_VE",
+            "Viet Nam": "vi_VN",
+            "Yemen": "ar_YE",
+            "Zimbabwe": "en_ZW"
         },
         error: null,
         title: '',
@@ -115,12 +268,20 @@ var app = new Vue({
                 })
                 .catch(exc => this.error = exc);
         },
+        toggleCheckbox(localeId) {
+            if (this.checkedLocales.indexOf(localeId) !== -1) {
+                var index = this.checkedLocales.indexOf(localeId);
+                this.checkedLocales.splice(index, 1);
+            } else {
+                this.checkedLocales.push(localeId);
+            }
+        },
         loadItem(index) {
             this.offers = {};
             this.error = null;
 
             var promises = [];
-            Object.keys(this.availableLocales).forEach((locale) => {
+            this.checkedLocales.forEach((locale) => {
                 var searchItem = this.searchItems[index];
                 var url = `https://apis.justwatch.com/content/titles/${searchItem.type}/${searchItem.id}/locale/${locale}?language=fr`
                 promises.push(fetch(url)
