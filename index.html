@@ -288,6 +288,7 @@ var app = new Vue({
                     .then(response => response.json())
                     .then(response => {
                         if (!response.offers) {
+                            this.offers[locale] = [];
                             return;
                         }
                         this.offers[locale] = response.offers
