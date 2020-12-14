@@ -76,7 +76,6 @@
                         <label v-bind:for="localeId">{{ country }}</label>
                     </div>
                 </div>
-                <!-- TODO: Remember checkboxes status -->
                 <p>
                     <input type="submit" value="Search"/>
                 </p>
@@ -102,6 +101,11 @@
     <script type="text/javascript">
 var JUSTWATCH_API_DOMAIN = 'https://apis.justwatch.com';
 
+var checkedLocales = JSON.parse(localStorage.getItem('checkedLocales'));
+if (!checkedLocales) {
+    checkedLocales = ['fr_FR', 'en_AU', 'en_CA', 'de_DE', 'pl_PL', 'en_SG', 'en_UK'];
+}
+
 var app = new Vue({
     el: '#app',
     computed: {
@@ -114,7 +118,7 @@ var app = new Vue({
         },
     },
     data: {
-        checkedLocales: ['fr_FR', 'en_AU', 'en_CA', 'de_DE', 'pl_PL', 'en_SG', 'en_UK'],
+        checkedLocales: checkedLocales,
         availableCountries: {
             "Afghanistan": "ps_AF",
             "Albania": "sq_AL",
@@ -289,6 +293,8 @@ var app = new Vue({
             } else {
                 this.checkedLocales.push(localeId);
             }
+
+            localStorage.setItem('checkedLocales', JSON.stringify(this.checkedLocales));
         },
         loadItem(index) {
             this.offers = {};
