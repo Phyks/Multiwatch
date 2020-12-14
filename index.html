@@ -100,6 +100,8 @@
         </div>
     </div>
     <script type="text/javascript">
+var JUSTWATCH_API_DOMAIN = 'https://apis.justwatch.com';
+
 var app = new Vue({
     el: '#app',
     computed: {
@@ -295,7 +297,7 @@ var app = new Vue({
             var promises = [];
             this.checkedLocales.forEach((locale) => {
                 var searchItem = this.searchItems[index];
-                var url = `https://apis.justwatch.com/content/titles/${searchItem.type}/${searchItem.id}/locale/${locale}?language=fr`
+                var url = `${JUSTWATCH_API_DOMAIN}/content/titles/${searchItem.type}/${searchItem.id}/locale/${locale}?language=fr`
                 promises.push(fetch(url)
                     .then(response => response.json())
                     .then(response => {
