@@ -12,6 +12,47 @@ Relies on data from [Justwatch.com](https://www.justwatch.com/).
 Just open `index.html` with your browser.
 
 
+## Serve it with a web server
+
+If you want to serve this code with a webserver, clone this repository
+somewhere in your web server root and configure your webserver to proxy_pass
+to the underlying API.
+
+For nginx, you can use the following snippet, replacing the server names and
+paths by your own configuration:
+
+```
+server {
+    listen       80;
+    server_name  multiwatch.example.com;
+
+    location / {
+        root   /path/to/multiwatch;
+        index  index.html;
+    }
+}
+
+server {
+    listen       80;
+    server_name  justwatch.example.com;
+
+    location / {
+        root   /dev/null;
+        proxy_pass https://apis.justwatch.com/;
+
+        add_header 'Access-Control-Allow-Origin' '*';
+    }
+}
+```
+
+Then, edit the API domain in the `index.html` to match your configuration. For
+the above snippet, this would result in:
+
+```js
+var JUSTWATCH_API_DOMAIN = 'http://justwatch.example.com';
+```
+
+
 ## License
 
 Code published under an MIT license.
