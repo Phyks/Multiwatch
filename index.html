@@ -41,6 +41,14 @@
           cursor: pointer;
       }
 
+      .poster {
+          height: 392px;
+          width: 276px;
+          display: inline-block;
+          background-color: gray;
+          margin: 1em;
+      }
+
       .no-bullet {
           list-style-type: none;
       }
@@ -77,7 +85,7 @@
         <div v-else>
             <ul v-if="step == 2" class="no-bullet">
                 <li v-for="(item, index) in searchItems">
-                    <img class="pointer" v-bind:src="item.poster_url" v-bind:alt="item.title" v-on:click="() => loadItem(index)" />
+                    <img class="pointer poster" v-bind:src="item.poster_url" v-bind:alt="item.title" v-on:click="() => loadItem(index)" />
                 </li>
             </ul>
             <div v-else>
@@ -257,11 +265,15 @@ var app = new Vue({
                     }
 
                     this.searchItems = response.items.map((item) => {
+                        var poster = null;
+                        if (item['poster']) {
+                            poster = item['poster'].replace('{profile}', 's276');
+                        }
                         return {
                             id: item.id,
                             title: item.title,
                             type: item.object_type,
-                            poster_url: `https://images.justwatch.com${item['poster'].replace('{profile}', 's276')}`
+                            poster_url: `https://images.justwatch.com${poster}`
                         };
                     });
                     this.step += 1;
