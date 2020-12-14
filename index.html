@@ -257,7 +257,7 @@ var app = new Vue({
     },
     methods: {
         search() {
-            fetch(`https://apis.justwatch.com/content/titles/fr_FR/popular?language=fr&body={"page_size":5,"page":1,"query":"${this.title}","content_types":["show","movie"]}`)
+            fetch(`${JUSTWATCH_API_DOMAIN}/content/titles/fr_FR/popular?language=fr&body={"page_size":20,"page":1,"query":"${this.title}","content_types":["show","movie"]}`)
                 .then(response => response.json())
                 .then(response => {
                     this.error = null;
