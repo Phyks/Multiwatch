@@ -81,20 +81,27 @@
                 </p>
             </form>
         </div>
-        <div v-else>
-            <ul v-if="step == 2" class="no-bullet">
+        <div v-else-if="step == 2">
+            <ul class="no-bullet">
                 <li v-for="(item, index) in searchItems">
-                    <img class="pointer poster" v-bind:src="item.poster_url" v-bind:alt="item.title" v-on:click="() => loadItem(index)" />
+                    <img class="pointer poster" v-bind:src="item.poster_url" v-bind:alt="item.title" v-on:click="() => preloadItem(index)" />
                 </li>
             </ul>
-            <div v-else>
-                <div v-for="(localeOffers, locale) in offers">
-                    <h3>{{ availableLocales[locale] }}</h3>
-                    <ul v-if="localeOffers.length > 0" class="left">
-                        <li v-for="offer in localeOffers"><a v-bind:href="offer">{{ offer }}</a></li>
-                    </ul>
-                    <p v-else>None</p>
-                </div>
+        </div>
+        <div v-else-if="step == 3">
+            <ul class="no-bullet">
+                <li v-for="(item, index) in seasons">
+                    <img class="pointer poster" v-bind:src="item.poster_url" v-bind:alt="item.title" v-on:click="() => loadItem(index, true)" />
+                </li>
+            </ul>
+        </div>
+        <div v-else-if="step == 4">
+            <div v-for="(localeOffers, locale) in offers">
+                <h3>{{ availableLocales[locale] }}</h3>
+                <ul v-if="localeOffers.length > 0" class="left">
+                    <li v-for="offer in localeOffers"><a v-bind:href="offer.url">{{ offer.url }}</a> [{{ offer.type.toUpperCase() }}]</li>
+                </ul>
+                <p v-else>None</p>
             </div>
         </div>
     </div>
@@ -103,7 +110,7 @@ var JUSTWATCH_API_DOMAIN = 'https://apis.justwatch.com';
 
 var checkedLocales = JSON.parse(localStorage.getItem('checkedLocales'));
 if (!checkedLocales) {
-    checkedLocales = ['fr_FR', 'en_AU', 'en_CA', 'de_DE', 'pl_PL', 'en_SG', 'en_UK'];
+    checkedLocales = ['fr_FR', 'en_AU', 'en_CA', 'de_DE', 'pl_PL', 'en_SG', 'en_GB'];
 }
 
 var app = new Vue({
@@ -257,6 +264,7 @@ var app = new Vue({
         title: '',
         searchItems: [],
         offers: {},
+        seasons: {},
         step: 1,
     },
     methods: {
@@ -282,6 +290,7 @@ var app = new Vue({
                             poster_url: `https://images.justwatch.com${poster}`
                         };
                     });
+
                     this.step += 1;
                 })
                 .catch(exc => this.error = exc);
@@ -296,13 +305,42 @@ var app = new Vue({
 
             localStorage.setItem('checkedLocales', JSON.stringify(this.checkedLocales));
         },
-        loadItem(index) {
+        preloadItem(index) {
+            var searchItem = this.searchItems[index];
+            fetch(`${JUSTWATCH_API_DOMAIN}/content/titles/${searchItem.type}/${searchItem.id}/locale/fr-FR?language=fr`)
+                .then(response => response.json())
+                .then(response => {
+                    this.seasons = {};
+                    if (response.seasons && response.seasons.length > 0) {
+                        this.seasons = response.seasons.map((item) => {
+                            var poster = null;
+                            if (item['poster']) {
+                                poster = item['poster'].replace('{profile}', 's276');
+                            }
+                            return {
+                                id: item.id,
+                                title: item.title,
+                                type: item.object_type,
+                                poster_url: `https://images.justwatch.com${poster}`
+                            };
+                        });
+                        this.step += 1;
+                    } else {
+                        this.step += 1;
+                        this.loadItem(index, false);
+                    }
+                });
+        },
+        loadItem(index, isSeason) {
             this.offers = {};
             this.error = null;
 
             var promises = [];
             this.checkedLocales.forEach((locale) => {
                 var searchItem = this.searchItems[index];
+                if (isSeason) {
+                    searchItem = this.seasons[index];
+                }
                 var url = `${JUSTWATCH_API_DOMAIN}/content/titles/${searchItem.type}/${searchItem.id}/locale/${locale}?language=fr`
                 promises.push(fetch(url)
                     .then(response => response.json())
@@ -313,7 +351,12 @@ var app = new Vue({
                         }
                         this.offers[locale] = response.offers
                             .filter(item => item.monetization_type == 'flatrate')
-                            .map(item => item.urls.standard_web);
+                            .map(item => {
+                                return {
+                                    url: item.urls.standard_web,
+                                    type: item.presentation_type,
+                                }
+                            });
                         this.offers[locale] = [...new Set(this.offers[locale])];
                     })
                     .catch(exc => this.error = exc)
