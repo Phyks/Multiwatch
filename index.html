@@ -350,7 +350,7 @@ var app = new Vue({
                             return;
                         }
                         this.offers[locale] = response.offers
-                            .filter(item => item.monetization_type == 'flatrate')
+                            .filter(item => item.monetization_type == 'flatrate' || item.monetization_type == 'ads')
                             .map(item => {
                                 return {
                                     url: item.urls.standard_web,
