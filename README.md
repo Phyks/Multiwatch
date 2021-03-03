@@ -1,7 +1,7 @@
 Multiwatcher
 ============
 
-Found out which services offer a given movie or show title across a matrix of
+Find out which services offer a given movie or show title across a matrix of
 localizations.
 
 Relies on data from [Justwatch.com](https://www.justwatch.com/).
