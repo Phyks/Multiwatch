@@ -9,7 +9,7 @@ Relies on data from [Justwatch.com](https://www.justwatch.com/).
 
 ## Usage
 
-Just open `index.html` with your browser.
+Just open `public/index.html` with your browser.
 
 
 ## Serve it with a web server
@@ -27,7 +27,7 @@ server {
     server_name  multiwatch.example.com;
 
     location / {
-        root   /path/to/multiwatch;
+        root   /path/to/multiwatch/public;
         index  index.html;
     }
 }
@@ -45,7 +45,7 @@ server {
 }
 ```
 
-Then, edit the API domain in the `index.html` to match your configuration. For
+Then, edit the API domain in the `public/index.html` to match your configuration. For
 the above snippet, this would result in:
 
 ```js
