@@ -307,7 +307,7 @@ var app = new Vue({
         },
         preloadItem(index) {
             var searchItem = this.searchItems[index];
-            fetch(`${JUSTWATCH_API_DOMAIN}/content/titles/${searchItem.type}/${searchItem.id}/locale/fr-FR?language=fr`, { credentials : "include" })
+            fetch(`${JUSTWATCH_API_DOMAIN}/content/titles/${searchItem.type}/${searchItem.id}/locale/fr_FR?language=fr`, { credentials : "include" })
                 .then(response => response.json())
                 .then(response => {
                     this.seasons = {};
