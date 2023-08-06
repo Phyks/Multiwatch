@@ -39,6 +39,7 @@ server {
     location / {
         root   /dev/null;
         proxy_pass https://apis.justwatch.com/;
+        proxy_set_header 'Origin' 'apis.justwatch.com';
 
         add_header 'Access-Control-Allow-Origin' '*';
     }
