@@ -269,7 +269,7 @@ var app = new Vue({
     },
     methods: {
         search() {
-            fetch(`${JUSTWATCH_API_DOMAIN}/content/titles/fr_FR/popular?language=fr&body={"page_size":20,"page":1,"query":"${this.title}","content_types":["show","movie"]}`)
+            fetch(`${JUSTWATCH_API_DOMAIN}/content/titles/fr_FR/popular?language=fr&body={"page_size":20,"page":1,"query":"${this.title}","content_types":["show","movie"]}`, { credentials : "include" })
                 .then(response => response.json())
                 .then(response => {
                     this.error = null;
@@ -307,7 +307,7 @@ var app = new Vue({
         },
         preloadItem(index) {
             var searchItem = this.searchItems[index];
-            fetch(`${JUSTWATCH_API_DOMAIN}/content/titles/${searchItem.type}/${searchItem.id}/locale/fr-FR?language=fr`)
+            fetch(`${JUSTWATCH_API_DOMAIN}/content/titles/${searchItem.type}/${searchItem.id}/locale/fr-FR?language=fr`, { credentials : "include" })
                 .then(response => response.json())
                 .then(response => {
                     this.seasons = {};
@@ -342,7 +342,7 @@ var app = new Vue({
                     searchItem = this.seasons[index];
                 }
                 var url = `${JUSTWATCH_API_DOMAIN}/content/titles/${searchItem.type}/${searchItem.id}/locale/${locale}?language=fr`
-                promises.push(fetch(url)
+                promises.push(fetch(url, { credentials : "include" })
                     .then(response => response.json())
                     .then(response => {
                         if (!response.offers) {
