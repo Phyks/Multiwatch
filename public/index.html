@@ -99,7 +99,7 @@
             <div v-for="(localeOffers, locale) in offers">
                 <h3>{{ availableLocales[locale] }}</h3>
                 <ul v-if="localeOffers.length > 0" class="left">
-                    <li v-for="offer in localeOffers"><a v-bind:href="offer.url">{{ offer.url }}</a> [{{ offer.type.toUpperCase() }}]</li>
+                    <li v-for="offer in localeOffers">{{ offer }}</li>
                 </ul>
                 <p v-else>None</p>
             </div>
@@ -110,7 +110,7 @@ var JUSTWATCH_API_DOMAIN = 'https://apis.justwatch.com';
 
 var checkedLocales = JSON.parse(localStorage.getItem('checkedLocales'));
 if (!checkedLocales) {
-    checkedLocales = ['fr_FR', 'en_AU', 'en_CA', 'de_DE', 'pl_PL', 'en_SG', 'en_GB'];
+    checkedLocales = ['FR', 'AU', 'CA', 'DE', 'PL', 'SG', 'GB'];
 }
 
 var app = new Vue({
@@ -127,138 +127,138 @@ var app = new Vue({
     data: {
         checkedLocales: checkedLocales,
         availableCountries: {
-            "Afghanistan": "ps_AF",
-            "Albania": "sq_AL",
-            "Algeria": "ar_DZ",
-            "Andorra": "ca_AD",
-            "Antigua And Barbuda": "en_AG",
-            "Argentina": "es_AR",
-            "Armenia": "hy_AM",
-            "Aruba": "nl_AW",
-            "Australia": "en_AU",
-            "Austria": "de_AT",
-            "Azerbaijan": "az_AZ",
-            "Bahrain": "ar_BH",
-            "Bangladesh": "bn_BD",
-            "Belarus": "be_BY",
-            "Belgium": "fr_BE",
-            "Bhutan": "dz_BT",
-            "Bolivia": "es_BO",
-            "Bosnia And Herzegovina": "bs_BA",
-            "Botswana": "en_BW",
-            "Brazil": "pt_BR",
-            "Bulgaria": "bg_BG",
-            "Cambodia": "km_KH",
-            "Canada": "en_CA",
-            "Chile": "es_CL",
-            "China": "zh_CN",
-            "Colombia": "es_CO",
-            "Costa Rica": "es_CR",
-            "Croatia": "hr_HR",
-            "Cyprus": "el_CY",
-            "Czech Republic": "cs_CZ",
-            "Denmark": "da_DK",
-            "Djibouti": "so_DJ",
-            "Dominican Republic": "es_DO",
-            "Ecuador": "es_EC",
-            "Egypt": "ar_EG",
-            "El Salvador": "es_SV",
-            "Eritrea": "tig_ER",
-            "Estonia": "et_EE",
-            "Ethiopia": "am_ET",
-            "Faroe Islands": "fo_FO",
-            "Finland": "fi_FI",
-            "France": "fr_FR",
-            "Georgia": "ka_GE",
-            "Germany": "de_DE",
-            "Greece": "el_GR",
-            "Greenland": "kl_GL",
-            "Guatemala": "es_GT",
-            "Haiti": "ht_HT",
-            "Honduras": "es_HN",
-            "Hong Kong": "en_HK",
-            "Hungary": "hu_HU",
-            "Iceland": "is_IS",
-            "India": "en_IN",
-            "Indonesia": "id_ID",
-            "Iran, Islamic Republic Of": "fa_IR",
-            "Iraq": "ar_IQ",
-            "Ireland": "en_IE",
-            "Israel": "he_IL",
-            "Italy": "it_IT",
-            "Japan": "ja_JP",
-            "Jordan": "ar_JO",
-            "Kazakhstan": "kk_KZ",
-            "Kenya": "om_KE",
-            "Korea, Republic Of": "ko_KR",
-            "Kuwait": "ar_KW",
-            "Kyrgyzstan": "ky_KG",
-            "Latvia": "lv_LV",
-            "Lebanon": "ar_LB",
-            "Libyan Arab Jamahiriya": "ar_LY",
-            "Liechtenstein": "de_LI",
-            "Lithuania": "lt_LT",
-            "Luxembourg": "fr_LU",
-            "Macedonia": "mk_MK",
-            "Madagascar": "mg_MG",
-            "Malaysia": "ms_MY",
-            "Maldives": "dv_MV",
-            "Malta": "mt_MT",
-            "Mexico": "es_MX",
-            "Mongolia": "mn_MN",
-            "Morocco": "ar_MA",
-            "Myanmar": "my_MM",
-            "Nepal": "ne_NP",
-            "Netherlands": "nl_NL",
-            "Netherlands Antilles": "pap_AN",
-            "New Zealand": "en_NZ",
-            "Nicaragua": "es_NI",
-            "Nigeria": "en_NG",
-            "Norway": "no_NO",
-            "Oman": "ar_OM",
-            "Pakistan": "pa_PK",
-            "Panama": "es_PA",
-            "Paraguay": "es_PY",
-            "Peru": "es_PE",
-            "Philippines": "en_PH",
-            "Poland": "pl_PL",
-            "Portugal": "pt_PT",
-            "Puerto Rico": "es_PR",
-            "Qatar": "ar_QA",
-            "Romania": "ro_RO",
-            "Russian Federation": "ru_RU",
-            "Rwanda": "rw_RW",
-            "Saudi Arabia": "ar_SA",
-            "Senegal": "wo_SN",
-            "Serbia And Montenegro": "sr_CS",
-            "Singapore": "en_SG",
-            "Slovakia": "sk_SK",
-            "Slovenia": "sl_SI",
-            "Somalia": "so_SO",
-            "South Africa": "af_ZA",
-            "Spain": "es_ES",
-            "Sri Lanka": "si_LK",
-            "Sudan": "ar_SD",
-            "Sweden": "sv_SE",
-            "Switzerland": "fr_CH",
-            "Syrian Arab Republic": "ar_SY",
-            "Taiwan": "zh_TW",
-            "Tajikistan": "tg_TJ",
-            "Thailand": "th_TH",
-            "Tunisia": "ar_TN",
-            "Turkey": "tr_TR",
-            "Turkmenistan": "tk_TM",
-            "Uganda": "lg_UG",
-            "Ukraine": "uk_UA",
-            "United Arab Emirates": "ar_AE",
-            "United Kingdom": "en_GB",
-            "United States": "en_US",
-            "Uruguay": "es_UY",
-            "Uzbekistan": "uz_UZ",
-            "Venezuela": "es_VE",
-            "Viet Nam": "vi_VN",
-            "Yemen": "ar_YE",
-            "Zimbabwe": "en_ZW"
+            "Afghanistan": "AF",
+            "Albania": "AL",
+            "Algeria": "DZ",
+            "Andorra": "AD",
+            "Antigua And Barbuda": "AG",
+            "Argentina": "AR",
+            "Armenia": "AM",
+            "Aruba": "AW",
+            "Australia": "AU",
+            "Austria": "AT",
+            "Azerbaijan": "AZ",
+            "Bahrain": "BH",
+            "Bangladesh": "BD",
+            "Belarus": "BY",
+            "Belgium": "BE",
+            "Bhutan": "BT",
+            "Bolivia": "BO",
+            "Bosnia And Herzegovina": "BA",
+            "Botswana": "BW",
+            "Brazil": "BR",
+            "Bulgaria": "BG",
+            "Cambodia": "KH",
+            "Canada": "CA",
+            "Chile": "CL",
+            "China": "CN",
+            "Colombia": "CO",
+            "Costa Rica": "CR",
+            "Croatia": "HR",
+            "Cyprus": "CY",
+            "Czech Republic": "CZ",
+            "Denmark": "DK",
+            "Djibouti": "DJ",
+            "Dominican Republic": "DO",
+            "Ecuador": "EC",
+            "Egypt": "EG",
+            "El Salvador": "SV",
+            "Eritrea": "tER",
+            "Estonia": "EE",
+            "Ethiopia": "ET",
+            "Faroe Islands": "FO",
+            "Finland": "FI",
+            "France": "FR",
+            "Georgia": "GE",
+            "Germany": "DE",
+            "Greece": "GR",
+            "Greenland": "GL",
+            "Guatemala": "GT",
+            "Haiti": "HT",
+            "Honduras": "HN",
+            "Hong Kong": "HK",
+            "Hungary": "HU",
+            "Iceland": "IS",
+            "India": "IN",
+            "Indonesia": "ID",
+            "Iran, Islamic Republic Of": "IR",
+            "Iraq": "IQ",
+            "Ireland": "IE",
+            "Israel": "IL",
+            "Italy": "IT",
+            "Japan": "JP",
+            "Jordan": "JO",
+            "Kazakhstan": "KZ",
+            "Kenya": "KE",
+            "Korea, Republic Of": "KR",
+            "Kuwait": "KW",
+            "Kyrgyzstan": "KG",
+            "Latvia": "LV",
+            "Lebanon": "LB",
+            "Libyan Arab Jamahiriya": "LY",
+            "Liechtenstein": "LI",
+            "Lithuania": "LT",
+            "Luxembourg": "LU",
+            "Macedonia": "MK",
+            "Madagascar": "MG",
+            "Malaysia": "MY",
+            "Maldives": "MV",
+            "Malta": "MT",
+            "Mexico": "MX",
+            "Mongolia": "MN",
+            "Morocco": "MA",
+            "Myanmar": "MM",
+            "Nepal": "NP",
+            "Netherlands": "NL",
+            "Netherlands Antilles": "pAN",
+            "New Zealand": "NZ",
+            "Nicaragua": "NI",
+            "Nigeria": "NG",
+            "Norway": "NO",
+            "Oman": "OM",
+            "Pakistan": "PK",
+            "Panama": "PA",
+            "Paraguay": "PY",
+            "Peru": "PE",
+            "Philippines": "PH",
+            "Poland": "PL",
+            "Portugal": "PT",
+            "Puerto Rico": "PR",
+            "Qatar": "QA",
+            "Romania": "RO",
+            "Russian Federation": "RU",
+            "Rwanda": "RW",
+            "Saudi Arabia": "SA",
+            "Senegal": "SN",
+            "Serbia And Montenegro": "CS",
+            "Singapore": "SG",
+            "Slovakia": "SK",
+            "Slovenia": "SI",
+            "Somalia": "SO",
+            "South Africa": "ZA",
+            "Spain": "ES",
+            "Sri Lanka": "LK",
+            "Sudan": "SD",
+            "Sweden": "SE",
+            "Switzerland": "CH",
+            "Syrian Arab Republic": "SY",
+            "Taiwan": "TW",
+            "Tajikistan": "TJ",
+            "Thailand": "TH",
+            "Tunisia": "TN",
+            "Turkey": "TR",
+            "Turkmenistan": "TM",
+            "Uganda": "UG",
+            "Ukraine": "UA",
+            "United Arab Emirates": "AE",
+            "United Kingdom": "GB",
+            "United States": "US",
+            "Uruguay": "UY",
+            "Uzbekistan": "UZ",
+            "Venezuela": "VE",
+            "Viet Nam": "VN",
+            "Yemen": "YE",
+            "Zimbabwe": "ZW"
         },
         error: null,
         title: '',
@@ -269,25 +269,45 @@ var app = new Vue({
     },
     methods: {
         search() {
-            fetch(`${JUSTWATCH_API_DOMAIN}/content/titles/fr_FR/popular?language=fr&body={"page_size":20,"page":1,"query":"${this.title}","content_types":["show","movie"]}`, { credentials : "include" })
+            fetch(
+                `${JUSTWATCH_API_DOMAIN}/graphql`,
+                {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        "operationName": "GetSuggestedTitles",
+                        "variables": {
+                            "country": "FR",
+                            "language": "fr",
+                            "first": 4,
+                            "filter": {"searchQuery": this.title}
+                        },
+                        "query": "query GetSuggestedTitles($country: Country!, $language: Language!, $first: Int!, $filter: TitleFilter) {  popularTitles(country: $country, first: $first, filter: $filter) {    edges {      node {        ...SuggestedTitle        __typename      }      __typename    }    __typename  }}fragment SuggestedTitle on MovieOrShow {  id  objectType  objectId  content(country: $country, language: $language) {    fullPath    title    originalReleaseYear    posterUrl    fullPath    __typename  }  watchNowOffer(country: $country, platform: WEB) {    id    standardWebURL    package {      id      packageId      __typename    }    __typename  }  offers(country: $country, platform: WEB) {    monetizationType    presentationType    standardWebURL    package {      id      packageId      __typename    }    id    __typename  }  __typename}",
+                    }),
+                    credentials : "include",
+                }
+            )
                 .then(response => response.json())
                 .then(response => {
                     this.error = null;
-                    if (!response.items || response.items.length == 0) {
+                    if (!response.data.popularTitles.edges || response.data.popularTitles.length == 0) {
                         this.error = 'Not found'
                         return;
                     }
 
-                    this.searchItems = response.items.map((item) => {
+                    this.searchItems = response.data.popularTitles.edges.map((item) => {
                         var poster = null;
-                        if (item['poster']) {
-                            poster = item['poster'].replace('{profile}', 's276');
+                        if (item.node.content.posterUrl) {
+                            poster = item.node.content.posterUrl.replace('{profile}', 's276');
                         }
                         return {
-                            id: item.id,
-                            title: item.title,
-                            type: item.object_type,
-                            poster_url: `https://images.justwatch.com${poster}`
+                            id: item.node.id,
+                            title: item.node.content.title,
+                            type: item.node.objectType,
+                            poster_url: `https://images.justwatch.com${poster}`,
+                            fullPath: item.node.content.fullPath,
                         };
                     });
 
@@ -307,29 +327,60 @@ var app = new Vue({
         },
         preloadItem(index) {
             var searchItem = this.searchItems[index];
-            fetch(`${JUSTWATCH_API_DOMAIN}/content/titles/${searchItem.type}/${searchItem.id}/locale/fr_FR?language=fr`, { credentials : "include" })
-                .then(response => response.json())
-                .then(response => {
-                    this.seasons = {};
-                    if (response.seasons && response.seasons.length > 0) {
-                        this.seasons = response.seasons.map((item) => {
-                            var poster = null;
-                            if (item['poster']) {
-                                poster = item['poster'].replace('{profile}', 's276');
+            fetch(
+                `${JUSTWATCH_API_DOMAIN}/graphql`,
+                {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        "operationName": "GetUrlTitleDetails",
+                        "variables": {
+                            "platform": "WEB",
+                            "fullPath": searchItem.fullPath,
+                            "language": "fr",
+                            "country": "FR",
+                            "episodeMaxLimit": 20,
+                            "allowSponsoredRecommendations": {
+                                "appId": "3.8.2-webapp#dec565e",
+                                "country": "FR",
+                                "language": "fr",
+                                "pageType": "VIEW_TITLE_DETAIL",
+                                "placement": "DETAIL_PAGE",
+                                "platform": "WEB",
+                                "supportedObjectTypes": ["MOVIE", "SHOW", "GENERIC_TITLE_LIST"],
+                                "supportedFormats": ["IMAGE", "VIDEO"]
                             }
-                            return {
-                                id: item.id,
-                                title: item.title,
-                                type: item.object_type,
-                                poster_url: `https://images.justwatch.com${poster}`
-                            };
-                        });
-                        this.step += 1;
-                    } else {
-                        this.step += 1;
-                        this.loadItem(index, false);
-                    }
-                });
+                        },
+                    "query": "query GetUrlTitleDetails($fullPath: String!, $country: Country!, $language: Language!, $episodeMaxLimit: Int, $platform: Platform! = WEB, $allowSponsoredRecommendations: SponsoredRecommendationsInput, $format: ImageFormat, $backdropProfile: BackdropProfile) {\n  urlV2(fullPath: $fullPath) {\n    id\n    metaDescription\n    metaKeywords\n    metaRobots\n    metaTitle\n    heading1\n    heading2\n    htmlContent\n    node {\n      id\n      __typename\n      ... on MovieOrShowOrSeason {\n        plexPlayerOffers: offers(\n          country: $country\n          platform: $platform\n          filter: {packages: [\"pxp\"]}\n        ) {\n          id\n          standardWebURL\n          package {\n            id\n            packageId\n            clearName\n            technicalName\n            shortName\n            __typename\n          }\n          __typename\n        }\n        disneyOffersCount: offerCount(\n          country: $country\n          platform: $platform\n          filter: {packages: [\"dnp\"]}\n        )\n        objectType\n        objectId\n        offerCount(country: $country, platform: $platform)\n        offers(country: $country, platform: $platform) {\n          monetizationType\n          elementCount\n          package {\n            id\n            packageId\n            clearName\n            __typename\n          }\n          __typename\n        }\n        watchNowOffer(country: $country, platform: $platform) {\n          id\n          standardWebURL\n          __typename\n        }\n        promotedBundles(country: $country, platform: $platform) {\n          promotionUrl\n          __typename\n        }\n        availableTo(country: $country, platform: $platform) {\n          availableCountDown(country: $country)\n          availableToDate\n          package {\n            id\n            shortName\n            __typename\n          }\n          __typename\n        }\n        fallBackClips: content(country: \"US\", language: \"en\") {\n          videobusterClips: clips(providers: [VIDEOBUSTER]) {\n            ...TrailerClips\n            __typename\n          }\n          dailymotionClips: clips(providers: [DAILYMOTION]) {\n            ...TrailerClips\n            __typename\n          }\n          __typename\n        }\n        content(country: $country, language: $language) {\n          backdrops {\n            backdropUrl\n            __typename\n          }\n          fullBackdrops: backdrops(profile: S1920, format: JPG) {\n            backdropUrl\n            __typename\n          }\n          clips {\n            ...TrailerClips\n            __typename\n          }\n          videobusterClips: clips(providers: [VIDEOBUSTER]) {\n            ...TrailerClips\n            __typename\n          }\n          dailymotionClips: clips(providers: [DAILYMOTION]) {\n            ...TrailerClips\n            __typename\n          }\n          externalIds {\n            imdbId\n            __typename\n          }\n          fullPath\n          genres {\n            shortName\n            __typename\n          }\n          posterUrl\n          fullPosterUrl: posterUrl(profile: S718, format: JPG)\n          runtime\n          isReleased\n          scoring {\n            imdbScore\n            imdbVotes\n            tmdbPopularity\n            tmdbScore\n            jwRating\n            __typename\n          }\n          shortDescription\n          title\n          originalReleaseYear\n          originalReleaseDate\n          upcomingReleases(releaseTypes: DIGITAL) {\n            releaseCountDown(country: $country)\n            releaseDate\n            label\n            package {\n              id\n              packageId\n              shortName\n              clearName\n              __typename\n            }\n            __typename\n          }\n          ... on MovieOrShowContent {\n            originalTitle\n            ageCertification\n            credits {\n              role\n              name\n              characterName\n              personId\n              __typename\n            }\n            interactions {\n              dislikelistAdditions\n              likelistAdditions\n              votesNumber\n              __typename\n            }\n            productionCountries\n            __typename\n          }\n          ... on SeasonContent {\n            seasonNumber\n            interactions {\n              dislikelistAdditions\n              likelistAdditions\n              votesNumber\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        popularityRank(country: $country) {\n          rank\n          trend\n          trendDifference\n          __typename\n        }\n        __typename\n      }\n      ... on MovieOrShow {\n        watchlistEntryV2 {\n          createdAt\n          __typename\n        }\n        likelistEntry {\n          createdAt\n          __typename\n        }\n        dislikelistEntry {\n          createdAt\n          __typename\n        }\n        customlistEntries {\n          createdAt\n          genericTitleList {\n            id\n            __typename\n          }\n          __typename\n        }\n        similarTitlesV2(\n          country: $country\n          allowSponsoredRecommendations: $allowSponsoredRecommendations\n        ) {\n          sponsoredAd {\n            ...SponsoredAdTitleDetail\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      ... on Movie {\n        permanentAudiences\n        seenlistEntry {\n          createdAt\n          __typename\n        }\n        __typename\n      }\n      ... on Show {\n        permanentAudiences\n        totalSeasonCount\n        seenState(country: $country) {\n          progress\n          seenEpisodeCount\n          __typename\n        }\n        tvShowTrackingEntry {\n          createdAt\n          __typename\n        }\n        seasons(sortDirection: DESC) {\n          id\n          objectId\n          objectType\n          totalEpisodeCount\n          availableTo(country: $country, platform: $platform) {\n            availableToDate\n            availableCountDown(country: $country)\n            package {\n              id\n              shortName\n              __typename\n            }\n            __typename\n          }\n          content(country: $country, language: $language) {\n            posterUrl\n            seasonNumber\n            fullPath\n            title\n            upcomingReleases(releaseTypes: DIGITAL) {\n              releaseDate\n              releaseCountDown(country: $country)\n              package {\n                id\n                shortName\n                __typename\n              }\n              __typename\n            }\n            isReleased\n            originalReleaseYear\n            __typename\n          }\n          show {\n            id\n            objectId\n            objectType\n            watchlistEntryV2 {\n              createdAt\n              __typename\n            }\n            content(country: $country, language: $language) {\n              title\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        recentEpisodes: episodes(\n          sortDirection: DESC\n          limit: 3\n          releasedInCountry: $country\n        ) {\n          id\n          objectId\n          content(country: $country, language: $language) {\n            title\n            shortDescription\n            episodeNumber\n            seasonNumber\n            isReleased\n            upcomingReleases {\n              releaseDate\n              label\n              __typename\n            }\n            __typename\n          }\n          seenlistEntry {\n            createdAt\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      ... on Season {\n        totalEpisodeCount\n        episodes(limit: $episodeMaxLimit) {\n          id\n          objectType\n          objectId\n          seenlistEntry {\n            createdAt\n            __typename\n          }\n          content(country: $country, language: $language) {\n            title\n            shortDescription\n            episodeNumber\n            seasonNumber\n            isReleased\n            upcomingReleases(releaseTypes: DIGITAL) {\n              releaseDate\n              label\n              package {\n                id\n                packageId\n                __typename\n              }\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        show {\n          id\n          objectId\n          objectType\n          totalSeasonCount\n          customlistEntries {\n            createdAt\n            genericTitleList {\n              id\n              __typename\n            }\n            __typename\n          }\n          tvShowTrackingEntry {\n            createdAt\n            __typename\n          }\n          fallBackClips: content(country: \"US\", language: \"en\") {\n            videobusterClips: clips(providers: [VIDEOBUSTER]) {\n              ...TrailerClips\n              __typename\n            }\n            dailymotionClips: clips(providers: [DAILYMOTION]) {\n              ...TrailerClips\n              __typename\n            }\n            __typename\n          }\n          content(country: $country, language: $language) {\n            title\n            ageCertification\n            fullPath\n            genres {\n              shortName\n              __typename\n            }\n            credits {\n              role\n              name\n              characterName\n              personId\n              __typename\n            }\n            productionCountries\n            externalIds {\n              imdbId\n              __typename\n            }\n            upcomingReleases(releaseTypes: DIGITAL) {\n              releaseDate\n              __typename\n            }\n            backdrops {\n              backdropUrl\n              __typename\n            }\n            posterUrl\n            isReleased\n            videobusterClips: clips(providers: [VIDEOBUSTER]) {\n              ...TrailerClips\n              __typename\n            }\n            dailymotionClips: clips(providers: [DAILYMOTION]) {\n              ...TrailerClips\n              __typename\n            }\n            __typename\n          }\n          seenState(country: $country) {\n            progress\n            __typename\n          }\n          watchlistEntryV2 {\n            createdAt\n            __typename\n          }\n          dislikelistEntry {\n            createdAt\n            __typename\n          }\n          likelistEntry {\n            createdAt\n            __typename\n          }\n          similarTitlesV2(\n            country: $country\n            allowSponsoredRecommendations: $allowSponsoredRecommendations\n          ) {\n            sponsoredAd {\n              ...SponsoredAdTitleDetail\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        seenState(country: $country) {\n          progress\n          __typename\n        }\n        __typename\n      }\n    }\n    __typename\n  }\n}\n\nfragment TrailerClips on Clip {\n  sourceUrl\n  externalId\n  provider\n  name\n  __typename\n}\n\nfragment SponsoredAdTitleDetail on SponsoredRecommendationAd {\n  bidId\n  holdoutGroup\n  campaign {\n    externalTrackers {\n      type\n      data\n      __typename\n    }\n    hideRatings\n    promotionalImageUrl\n    promotionalVideo {\n      url\n      __typename\n    }\n    promotionalText\n    watchNowLabel\n    watchNowOffer {\n      standardWebURL\n      presentationType\n      monetizationType\n      package {\n        id\n        packageId\n        shortName\n        clearName\n        icon\n        __typename\n      }\n      __typename\n    }\n    node {\n      nodeId: id\n      ... on MovieOrShow {\n        content(country: $country, language: $language) {\n          fullPath\n          posterUrl\n          title\n          originalReleaseYear\n          scoring {\n            imdbScore\n            __typename\n          }\n          externalIds {\n            imdbId\n            __typename\n          }\n          backdrops(format: $format, profile: $backdropProfile) {\n            backdropUrl\n            __typename\n          }\n          isReleased\n          __typename\n        }\n        objectId\n        objectType\n        offers(country: $country, platform: $platform) {\n          monetizationType\n          presentationType\n          package {\n            id\n            packageId\n            __typename\n          }\n          id\n          __typename\n        }\n        watchlistEntryV2 {\n          createdAt\n          __typename\n        }\n        __typename\n      }\n      ... on Show {\n        seenState(country: $country) {\n          seenEpisodeCount\n          __typename\n        }\n        __typename\n      }\n      ... on GenericTitleList {\n        followedlistEntry {\n          createdAt\n          name\n          __typename\n        }\n        id\n        name\n        type\n        visibility\n        titles(country: $country) {\n          totalCount\n          edges {\n            cursor\n            node {\n              content(country: $country, language: $language) {\n                fullPath\n                posterUrl\n                title\n                originalReleaseYear\n                scoring {\n                  imdbScore\n                  __typename\n                }\n                isReleased\n                __typename\n              }\n              id\n              objectId\n              objectType\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n"
+                }),
+                credentials : "include"
+            }
+        )
+            .then(response => response.json())
+            .then(response => {
+                this.seasons = {};
+                if (response.data.urlV2.node.seasons && response.data.urlV2.node.seasons.length > 0) {
+                    this.seasons = response.data.urlV2.node.seasons.map((item) => {
+                        var poster = null;
+                        if (item.content.posterUrl) {
+                            poster = item.content.posterUrl.replace('{profile}', 's276');
+                        }
+                        return {
+                            id: item.id,
+                            title: item.content.title,
+                            type: item.objectType,
+                            poster_url: `https://images.justwatch.com${poster}`,
+                            fullPath: item.content.fullPath,
+                        };
+                    });
+                    this.step += 1;
+                } else {
+                    this.step += 1;
+                    this.loadItem(index, false);
+                }
+            });
         },
         loadItem(index, isSeason) {
             this.offers = {};
@@ -341,22 +392,46 @@ var app = new Vue({
                 if (isSeason) {
                     searchItem = this.seasons[index];
                 }
-                var url = `${JUSTWATCH_API_DOMAIN}/content/titles/${searchItem.type}/${searchItem.id}/locale/${locale}?language=fr`
-                promises.push(fetch(url, { credentials : "include" })
+                promises.push(fetch(
+                    `${JUSTWATCH_API_DOMAIN}/graphql`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            "operationName": "GetUrlTitleDetails",
+                            "variables": {
+                                "platform": "WEB",
+                                "fullPath": searchItem.fullPath,
+                                "language": "fr",
+                                "country": locale,
+                                "episodeMaxLimit": 20,
+                                "allowSponsoredRecommendations": {
+                                    "appId": "3.8.2-webapp#dec565e",
+                                    "country": "FR",
+                                    "language": "fr",
+                                    "pageType": "VIEW_TITLE_DETAIL",
+                                    "placement": "DETAIL_PAGE",
+                                    "platform": "WEB",
+                                    "supportedObjectTypes": ["MOVIE", "SHOW", "GENERIC_TITLE_LIST"],
+                                    "supportedFormats": ["IMAGE", "VIDEO"]
+                                }
+                            },
+                        "query": "query GetUrlTitleDetails($fullPath: String!, $country: Country!, $language: Language!, $episodeMaxLimit: Int, $platform: Platform! = WEB, $allowSponsoredRecommendations: SponsoredRecommendationsInput, $format: ImageFormat, $backdropProfile: BackdropProfile) {\n  urlV2(fullPath: $fullPath) {\n    id\n    metaDescription\n    metaKeywords\n    metaRobots\n    metaTitle\n    heading1\n    heading2\n    htmlContent\n    node {\n      id\n      __typename\n      ... on MovieOrShowOrSeason {\n        plexPlayerOffers: offers(\n          country: $country\n          platform: $platform\n          filter: {packages: [\"pxp\"]}\n        ) {\n          id\n          standardWebURL\n          package {\n            id\n            packageId\n            clearName\n            technicalName\n            shortName\n            __typename\n          }\n          __typename\n        }\n        disneyOffersCount: offerCount(\n          country: $country\n          platform: $platform\n          filter: {packages: [\"dnp\"]}\n        )\n        objectType\n        objectId\n        offerCount(country: $country, platform: $platform)\n        offers(country: $country, platform: $platform) {\n          monetizationType\n          elementCount\n          package {\n            id\n            packageId\n            clearName\n            __typename\n          }\n          __typename\n        }\n        watchNowOffer(country: $country, platform: $platform) {\n          id\n          standardWebURL\n          __typename\n        }\n        promotedBundles(country: $country, platform: $platform) {\n          promotionUrl\n          __typename\n        }\n        availableTo(country: $country, platform: $platform) {\n          availableCountDown(country: $country)\n          availableToDate\n          package {\n            id\n            shortName\n            __typename\n          }\n          __typename\n        }\n        fallBackClips: content(country: \"US\", language: \"en\") {\n          videobusterClips: clips(providers: [VIDEOBUSTER]) {\n            ...TrailerClips\n            __typename\n          }\n          dailymotionClips: clips(providers: [DAILYMOTION]) {\n            ...TrailerClips\n            __typename\n          }\n          __typename\n        }\n        content(country: $country, language: $language) {\n          backdrops {\n            backdropUrl\n            __typename\n          }\n          fullBackdrops: backdrops(profile: S1920, format: JPG) {\n            backdropUrl\n            __typename\n          }\n          clips {\n            ...TrailerClips\n            __typename\n          }\n          videobusterClips: clips(providers: [VIDEOBUSTER]) {\n            ...TrailerClips\n            __typename\n          }\n          dailymotionClips: clips(providers: [DAILYMOTION]) {\n            ...TrailerClips\n            __typename\n          }\n          externalIds {\n            imdbId\n            __typename\n          }\n          fullPath\n          genres {\n            shortName\n            __typename\n          }\n          posterUrl\n          fullPosterUrl: posterUrl(profile: S718, format: JPG)\n          runtime\n          isReleased\n          scoring {\n            imdbScore\n            imdbVotes\n            tmdbPopularity\n            tmdbScore\n            jwRating\n            __typename\n          }\n          shortDescription\n          title\n          originalReleaseYear\n          originalReleaseDate\n          upcomingReleases(releaseTypes: DIGITAL) {\n            releaseCountDown(country: $country)\n            releaseDate\n            label\n            package {\n              id\n              packageId\n              shortName\n              clearName\n              __typename\n            }\n            __typename\n          }\n          ... on MovieOrShowContent {\n            originalTitle\n            ageCertification\n            credits {\n              role\n              name\n              characterName\n              personId\n              __typename\n            }\n            interactions {\n              dislikelistAdditions\n              likelistAdditions\n              votesNumber\n              __typename\n            }\n            productionCountries\n            __typename\n          }\n          ... on SeasonContent {\n            seasonNumber\n            interactions {\n              dislikelistAdditions\n              likelistAdditions\n              votesNumber\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        popularityRank(country: $country) {\n          rank\n          trend\n          trendDifference\n          __typename\n        }\n        __typename\n      }\n      ... on MovieOrShow {\n        watchlistEntryV2 {\n          createdAt\n          __typename\n        }\n        likelistEntry {\n          createdAt\n          __typename\n        }\n        dislikelistEntry {\n          createdAt\n          __typename\n        }\n        customlistEntries {\n          createdAt\n          genericTitleList {\n            id\n            __typename\n          }\n          __typename\n        }\n        similarTitlesV2(\n          country: $country\n          allowSponsoredRecommendations: $allowSponsoredRecommendations\n        ) {\n          sponsoredAd {\n            ...SponsoredAdTitleDetail\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      ... on Movie {\n        permanentAudiences\n        seenlistEntry {\n          createdAt\n          __typename\n        }\n        __typename\n      }\n      ... on Show {\n        permanentAudiences\n        totalSeasonCount\n        seenState(country: $country) {\n          progress\n          seenEpisodeCount\n          __typename\n        }\n        tvShowTrackingEntry {\n          createdAt\n          __typename\n        }\n        seasons(sortDirection: DESC) {\n          id\n          objectId\n          objectType\n          totalEpisodeCount\n          availableTo(country: $country, platform: $platform) {\n            availableToDate\n            availableCountDown(country: $country)\n            package {\n              id\n              shortName\n              __typename\n            }\n            __typename\n          }\n          content(country: $country, language: $language) {\n            posterUrl\n            seasonNumber\n            fullPath\n            title\n            upcomingReleases(releaseTypes: DIGITAL) {\n              releaseDate\n              releaseCountDown(country: $country)\n              package {\n                id\n                shortName\n                __typename\n              }\n              __typename\n            }\n            isReleased\n            originalReleaseYear\n            __typename\n          }\n          show {\n            id\n            objectId\n            objectType\n            watchlistEntryV2 {\n              createdAt\n              __typename\n            }\n            content(country: $country, language: $language) {\n              title\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        recentEpisodes: episodes(\n          sortDirection: DESC\n          limit: 3\n          releasedInCountry: $country\n        ) {\n          id\n          objectId\n          content(country: $country, language: $language) {\n            title\n            shortDescription\n            episodeNumber\n            seasonNumber\n            isReleased\n            upcomingReleases {\n              releaseDate\n              label\n              __typename\n            }\n            __typename\n          }\n          seenlistEntry {\n            createdAt\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      ... on Season {\n        totalEpisodeCount\n        episodes(limit: $episodeMaxLimit) {\n          id\n          objectType\n          objectId\n          seenlistEntry {\n            createdAt\n            __typename\n          }\n          content(country: $country, language: $language) {\n            title\n            shortDescription\n            episodeNumber\n            seasonNumber\n            isReleased\n            upcomingReleases(releaseTypes: DIGITAL) {\n              releaseDate\n              label\n              package {\n                id\n                packageId\n                __typename\n              }\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        show {\n          id\n          objectId\n          objectType\n          totalSeasonCount\n          customlistEntries {\n            createdAt\n            genericTitleList {\n              id\n              __typename\n            }\n            __typename\n          }\n          tvShowTrackingEntry {\n            createdAt\n            __typename\n          }\n          fallBackClips: content(country: \"US\", language: \"en\") {\n            videobusterClips: clips(providers: [VIDEOBUSTER]) {\n              ...TrailerClips\n              __typename\n            }\n            dailymotionClips: clips(providers: [DAILYMOTION]) {\n              ...TrailerClips\n              __typename\n            }\n            __typename\n          }\n          content(country: $country, language: $language) {\n            title\n            ageCertification\n            fullPath\n            genres {\n              shortName\n              __typename\n            }\n            credits {\n              role\n              name\n              characterName\n              personId\n              __typename\n            }\n            productionCountries\n            externalIds {\n              imdbId\n              __typename\n            }\n            upcomingReleases(releaseTypes: DIGITAL) {\n              releaseDate\n              __typename\n            }\n            backdrops {\n              backdropUrl\n              __typename\n            }\n            posterUrl\n            isReleased\n            videobusterClips: clips(providers: [VIDEOBUSTER]) {\n              ...TrailerClips\n              __typename\n            }\n            dailymotionClips: clips(providers: [DAILYMOTION]) {\n              ...TrailerClips\n              __typename\n            }\n            __typename\n          }\n          seenState(country: $country) {\n            progress\n            __typename\n          }\n          watchlistEntryV2 {\n            createdAt\n            __typename\n          }\n          dislikelistEntry {\n            createdAt\n            __typename\n          }\n          likelistEntry {\n            createdAt\n            __typename\n          }\n          similarTitlesV2(\n            country: $country\n            allowSponsoredRecommendations: $allowSponsoredRecommendations\n          ) {\n            sponsoredAd {\n              ...SponsoredAdTitleDetail\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        seenState(country: $country) {\n          progress\n          __typename\n        }\n        __typename\n      }\n    }\n    __typename\n  }\n}\n\nfragment TrailerClips on Clip {\n  sourceUrl\n  externalId\n  provider\n  name\n  __typename\n}\n\nfragment SponsoredAdTitleDetail on SponsoredRecommendationAd {\n  bidId\n  holdoutGroup\n  campaign {\n    externalTrackers {\n      type\n      data\n      __typename\n    }\n    hideRatings\n    promotionalImageUrl\n    promotionalVideo {\n      url\n      __typename\n    }\n    promotionalText\n    watchNowLabel\n    watchNowOffer {\n      standardWebURL\n      presentationType\n      monetizationType\n      package {\n        id\n        packageId\n        shortName\n        clearName\n        icon\n        __typename\n      }\n      __typename\n    }\n    node {\n      nodeId: id\n      ... on MovieOrShow {\n        content(country: $country, language: $language) {\n          fullPath\n          posterUrl\n          title\n          originalReleaseYear\n          scoring {\n            imdbScore\n            __typename\n          }\n          externalIds {\n            imdbId\n            __typename\n          }\n          backdrops(format: $format, profile: $backdropProfile) {\n            backdropUrl\n            __typename\n          }\n          isReleased\n          __typename\n        }\n        objectId\n        objectType\n        offers(country: $country, platform: $platform) {\n          monetizationType\n          presentationType\n          package {\n            id\n            packageId\n            __typename\n          }\n          id\n          __typename\n        }\n        watchlistEntryV2 {\n          createdAt\n          __typename\n        }\n        __typename\n      }\n      ... on Show {\n        seenState(country: $country) {\n          seenEpisodeCount\n          __typename\n        }\n        __typename\n      }\n      ... on GenericTitleList {\n        followedlistEntry {\n          createdAt\n          name\n          __typename\n        }\n        id\n        name\n        type\n        visibility\n        titles(country: $country) {\n          totalCount\n          edges {\n            cursor\n            node {\n              content(country: $country, language: $language) {\n                fullPath\n                posterUrl\n                title\n                originalReleaseYear\n                scoring {\n                  imdbScore\n                  __typename\n                }\n                isReleased\n                __typename\n              }\n              id\n              objectId\n              objectType\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n"
+                    }),
+                    credentials : "include"
+                }
+                )
                     .then(response => response.json())
                     .then(response => {
-                        if (!response.offers) {
+                        if (!response.data.urlV2.node.offers) {
                             this.offers[locale] = [];
                             return;
                         }
-                        this.offers[locale] = response.offers
-                            .filter(item => item.monetization_type == 'flatrate' || item.monetization_type == 'ads')
-                            .map(item => {
-                                return {
-                                    url: item.urls.standard_web,
-                                    type: item.presentation_type,
-                                }
-                            });
+                        this.offers[locale] = response.data.urlV2.node.offers
+                            .filter(item => item.monetizationType == 'FLATRATE' || item.monetizationType == 'ADS')
+                            .map(item => item.package.clearName);
                         this.offers[locale] = [...new Set(this.offers[locale])];
                     })
                     .catch(exc => this.error = exc)
