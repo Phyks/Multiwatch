@@ -37,11 +37,18 @@ server {
     server_name  justwatch.example.com;
 
     location / {
+        if ($request_method = OPTIONS ) {
+                return 200 'OK';
+        }
+
         root   /dev/null;
         proxy_pass https://apis.justwatch.com/;
         proxy_set_header 'Origin' 'apis.justwatch.com';
 
         add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Credentials' 'true';
+        add_header 'Access-Control-Allow-Headers' 'content-type';
+
     }
 }
 ```
